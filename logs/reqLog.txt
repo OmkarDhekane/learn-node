@@ -1,0 +1,7 @@
+20251015	13:55:44	d0332e7f-6e24-43df-9bcc-3a8df76898c8	/new-page.html	GET
+20251015	13:55:44	d73a10b6-4f7a-4652-a456-bd4ef64e7a82	/css/style.css	GET
+20251015	13:55:44	a5b61e2f-263c-4f40-9b69-62a52986d7f3	/img/img1.jpg	GET
+20251015	13:56:29	4c92ab97-a545-486a-817c-bf353e5a2042	/new-page.html	GET
+20251015	13:57:54	3d8454ae-ae74-4daf-a481-e04b56439e73	/new-page.html	GET
+20251015	13:57:54	c62f8ca1-eb69-4f57-9fb7-e9575895fab3	/css/style.css	GET
+20251015	13:57:54	fd04f2cb-fcc4-4497-b98c-1ad7e3fd46b5	/img/img1.jpg	GET
