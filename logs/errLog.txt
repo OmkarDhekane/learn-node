@@ -2,3 +2,4 @@
 20251016	22:14:42	fe254f79-6377-47a2-8806-eee5359a4520	Error: Not allowed by CORS
 20251016	22:14:43	d0f66d6a-15ee-438b-9541-fae895aecf00	Error: Not allowed by CORS
 20251016	22:39:38	3f604c76-068f-4561-86cb-b38a17f188b8	Error: Not allowed by CORS
+20251017	15:40:34	40a03cbe-bda5-4ae3-b488-087e1c83e4c0	TypeError: Cannot read properties of undefined (reading 'id')
