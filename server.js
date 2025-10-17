@@ -1,124 +1,90 @@
-import { EventEmitter } from 'events'
-import http  from 'http'
-import path  from 'path'
-import fsPromises from 'fs/promises'
-import fs from 'fs'
-import {fileURLToPath} from 'url';
-import { logEvents } from "./logEvents.js";
-
-class Emitter extends EventEmitter {};
-const myEmitter = new Emitter();
-myEmitter.on('log', (msg, fileName) => logEvents(msg, fileName));
+import path from 'path';
+import express from 'express';
+import { logger } from './middleware/logEvents.js'
+import  {errorHandler}  from './middleware/errorHandler.js';
+import cors from 'cors';
 
 
+const app = express();
 const PORT = process.env.PORT || 3500;
 
-const serveFile = async (filePath, contentType, response) =>{ 
-    try{
+////////////////
+// app.use() is what we use to define a middleware.
+// custom middleware
+app.use(logger);
+////////////////
+// third party middleware
 
-        // handle image
-        const rawData = await fsPromises.readFile(
-            filePath,
-            !contentType.includes('image') ? 'utf8' : '');
-
-        // handle json
-        const data = contentType === 'application/json' ? JSON.parse(rawData) : rawData;
-
-        response.writeHead(
-            filePath.includes('404.html') ? 404 : 200, 
-            {'Content-Type':contentType});
-        
-            response.end(
-            contentType === 'application/json' ? JSON.stringify(data) : data
-
-
-        );
-
-    }catch(err) {
-        console.log(err);
-        myEmitter.emit('log',`${err.name}\t${err.message}`, 'errLog.txt');
-        response.statusCode = 500;
-        response.end();
-    }
-
-
+// Cross-Origin Resource Sharing
+const whitelist = ['https://www.yoursite.com', 'http://127.0.0.1:5500','http://localhost:3500']
+const corsOptions = {
+    origin: (origin, callback) => {
+        console.log(origin)
+                if(!origin || whitelist.indexOf(origin) !== -1) {
+                    callback(null, true);
+                }else{
+                    callback(new Error('Not allowed by CORS'))
+                }
+            },
+    optionsSuccessStatus: 200
 }
+app.use(cors(corsOptions));
 
-const current_dirname = path.dirname(fileURLToPath(import.meta.url));
+////////////////
+// built in middlewares
+app.use(express.urlencoded({extended: false})); //built in middleware to handle urlencoded data
+app.use(express.json()) //built-in middleware for json
+app.use(express.static(path.join(process.cwd(), '/public'))) //built in middleware to serve static files (css, image etc)
 
-//creating server
-const server = http.createServer(async (req, res)=> {
-    
-    myEmitter.emit('log',`${req.url}\t${req.method}`, 'reqLog.txt');
+////////////////
 
-    const extension = path.extname(req.url);
-    let contentType;
+app.get(/^\/$|\/index(.html)?/, (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'views','index.html'))
+})
+app.get(/\/new-page(.html)?/, (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'views','new-page.html'))
+})
+app.get(/\/old-page(.html)?/, (req, res) => {
+    res.redirect(301, '/new-page.html')
+})
 
-    switch (extension) {
-        case '.css':
-            contentType = 'text/css';
-            break;
-        case '.js':
-            contentType = 'text/javascript';
-            break;
-        case '.json':
-            contentType = 'application/json';
-            break;
-        case '.jpg':
-            contentType = 'image/jpeg';
-            break;
-        case '.png':
-            contentType = 'image/png';
-            break;
-        case '.txt':
-            contentType = 'text/plain';
-            break;
-        case '.html':
-            contentType = 'text/html';
-            break;
-        default:    
-            contentType = 'text/html';
-            break;
-    }
-
-    let filePath = contentType === 'text/html' && req.url === '/'
-        ? path.join(current_dirname, 'views', 'index.html')
-        : contentType === 'text/html' && req.url.slice(-1) === '/'
-            ? path.join(current_dirname, 'views', req.url, 'index.html')
-            : contentType === 'text/html'
-                ? path.join(current_dirname, 'views', req.url)
-                : path.join(current_dirname, req.url);
-    
-    if(!extension && req.url.slice(-1) !== '/') filePath += '.html';
-
-    const fileExists = fs.existsSync(filePath);
-
-    if(fileExists){
-        //serve the file
-        serveFile(filePath, contentType, res);
-    } else {
-        //404 - file not found
-        // 301 - redirect
-        const base = path.parse(filePath).base;
-        switch (base) {
-            case 'old-page.html':
-                res.writeHead(301, {'Location': '/new-page.html'});
-                res.end();
-                break;
-            case 'www-page.html':
-                res.writeHead(301, {'Location': '/'});
-                res.end();
-                break;
-            default:
-                //404
-                serveFile(path.join(current_dirname, 'views', '404.html'), 'text/html', res);
-
-        }
-
-    }
-
+app.get(/\/hello(.html)?/, (req, res, next) => {
+    console.log('attempted to load hello.html');
+    next(); // chaining
+},(req, res) => {
+    res.send('Hello World!');
 });
 
+// ///////////////////////// example of chaining
+const one = (req, res, next) => {
+    console.log('one');
+    next();
+}
+const two = (req, res, next) => {
+    console.log('two');
+    next();
+}
+const three = (req, res) => {
+    console.log('three');
+    res.send('Finished!');
+}
+app.get(/\/chain(.html)?/, [one, two, three]);
+// /////////////////////////
 
-server.listen(PORT, () => console.log(`server running on PORT = ${PORT}`))
+app.all(/\/*/, (req, res) => {
+    res.status(404);
+    if(req.accepts('html')){
+        res.sendFile(path.join(process.cwd(), 'views','404.html'))
+    }
+    else if(req.accepts('json')){
+        res.json({error: "404 Not Found"})
+    }else{
+        res.type('txt').send('404 Not Found')
+    }
+});
 
+// another example of customer middleware
+app.use(errorHandler)
+
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

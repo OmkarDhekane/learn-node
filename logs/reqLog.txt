@@ -1,7 +1,31 @@
-20251015	13:55:44	d0332e7f-6e24-43df-9bcc-3a8df76898c8	/new-page.html	GET
-20251015	13:55:44	d73a10b6-4f7a-4652-a456-bd4ef64e7a82	/css/style.css	GET
-20251015	13:55:44	a5b61e2f-263c-4f40-9b69-62a52986d7f3	/img/img1.jpg	GET
-20251015	13:56:29	4c92ab97-a545-486a-817c-bf353e5a2042	/new-page.html	GET
-20251015	13:57:54	3d8454ae-ae74-4daf-a481-e04b56439e73	/new-page.html	GET
-20251015	13:57:54	c62f8ca1-eb69-4f57-9fb7-e9575895fab3	/css/style.css	GET
-20251015	13:57:54	fd04f2cb-fcc4-4497-b98c-1ad7e3fd46b5	/img/img1.jpg	GET
+20251016	22:07:09	2ad8f027-e68e-4c5c-965c-5f4a700ddc95	GET	undefined	/index.html
+20251016	22:07:09	268a3b0b-8541-4b21-bba2-c99429ef09ad	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:07:25	bb1fc016-6691-4a1b-9022-a4a1a322649c	GET	undefined	/index.html
+20251016	22:07:25	1f2309b0-96f5-4795-b505-0d2f3cdc3561	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:07:48	24cf518a-929b-41a0-b78c-e89904591544	GET	undefined	/index.html
+20251016	22:07:48	0e3271fa-0eea-4f52-ba22-6df633f2085e	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:08:18	fbac67ed-a57e-4450-91c8-7f63e1fc53cd	GET	undefined	/
+20251016	22:09:40	39de3fe7-7178-4079-9477-f8ededb160af	GET	undefined	/index.html
+20251016	22:09:40	089a0302-d5c5-4605-b85b-a928e8ea142a	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:10:35	a8e41bda-f0ac-49aa-8bfd-e829368d5fd5	GET	undefined	/index.html
+20251016	22:10:35	1a30ba96-950a-4222-bc8a-99a46a5cdd5c	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:10:35	09c27470-d015-404e-a764-d270835e77a1	GET	undefined	/css/style.css
+20251016	22:14:42	67c4e43b-1d99-4caa-aa3d-22490bb9a543	GET	undefined	/index.html
+20251016	22:14:43	20d3dca7-421e-476a-adbb-9484399b2203	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:15:07	56a4c490-46f0-4772-814f-a04b68ff93c1	GET	undefined	/index.html
+20251016	22:15:07	f231b425-eda0-415e-bad5-265d9959964a	GET	undefined	/.well-known/appspecific/com.chrome.devtools.json
+20251016	22:15:07	1818b151-8a44-4f5a-befc-ffb592690929	GET	undefined	/css/style.css
+20251016	22:39:29	4b63af32-0d90-4e07-a8d0-6226ee884d39	GET	undefined	/
+20251016	22:39:29	ded723b1-0043-4de1-961e-3d5e3cd6b16b	GET	undefined	/css/style.css
+20251016	22:39:30	cd4bbbd1-c694-4a2f-9b21-99e1f86f5470	GET	undefined	/favicon.ico
+20251016	22:39:38	d7fe710e-c15d-4fa0-a627-1089c35cda2f	GET	undefined	/
+20251016	22:39:45	200a9e3f-06a1-4da1-a2c2-54e433c05cc3	GET	undefined	/
+20251016	22:39:45	81baf30a-947b-4b00-9a00-03e64072339a	GET	undefined	/css/style.css
+20251016	22:41:37	44d06db8-a034-4a98-86a0-ac975fafbb5a	GET	undefined	/v
+20251016	22:41:40	6b7f1aca-ee5f-4575-b062-42fd3a7187f3	GET	undefined	/dev
+20251016	22:41:56	268ac4a3-6b1d-4ec4-a64c-2d314725cd97	GET	undefined	/dev
+20251016	22:41:56	419e1a24-545b-4c2d-82da-98521304917e	GET	undefined	/css/style.css
+20251016	22:42:05	c124e6f6-b2e2-4bd9-a0e0-6454eb2cff62	GET	undefined	/
+20251016	22:42:05	4cfbf674-7a5b-47ad-9f37-31ae752fdab8	GET	undefined	/css/style.css
+20251016	22:44:18	2675bb86-d020-4397-9bb5-f55df9e71f46	GET	undefined	/dev
+20251016	22:44:18	61947e80-89cd-4f65-94cb-434b86f8cd6c	GET	undefined	/css/style.css
