@@ -3,3 +3,7 @@
 20251016	22:14:43	d0f66d6a-15ee-438b-9541-fae895aecf00	Error: Not allowed by CORS
 20251016	22:39:38	3f604c76-068f-4561-86cb-b38a17f188b8	Error: Not allowed by CORS
 20251017	15:40:34	40a03cbe-bda5-4ae3-b488-087e1c83e4c0	TypeError: Cannot read properties of undefined (reading 'id')
+20251018	00:27:28	21f7e7f6-28dd-4e2f-ac26-d608a016b745	TypeError: existingArray is not iterable
+20251018	00:31:57	65ad65f5-bac4-4d7f-ab77-6bad3138ef5e	TypeError: existingArray is not iterable
+20251018	00:33:34	fa723c74-ad14-467e-b579-57dcd0aee98b	TypeError: Cannot read properties of undefined (reading 'id')
+20251018	00:34:23	1596cebe-87a2-42ef-8845-4d64086bc7df	TypeError: Cannot read properties of undefined (reading 'id')
