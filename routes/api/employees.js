@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 router.route('/')
-    .get(empController.getAllEmployees)
+    .get( empController.getAllEmployees)
     .post(empController.createEmployee)
     .put(empController.updateEmployee)
     .delete(empController.deleteEmployee);

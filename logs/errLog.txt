@@ -7,3 +7,7 @@
 20251018	00:31:57	65ad65f5-bac4-4d7f-ab77-6bad3138ef5e	TypeError: existingArray is not iterable
 20251018	00:33:34	fa723c74-ad14-467e-b579-57dcd0aee98b	TypeError: Cannot read properties of undefined (reading 'id')
 20251018	00:34:23	1596cebe-87a2-42ef-8845-4d64086bc7df	TypeError: Cannot read properties of undefined (reading 'id')
+20251018	13:49:03	230665f3-3113-44a4-8f30-270db735e524	SyntaxError: Unexpected token ''', ..."username":'TestUser'"... is not valid JSON
+20251018	16:53:54	a5577959-c42d-4555-bd45-fce4f9ad1fc3	ReferenceError: usersDB is not defined
+20251018	16:54:06	66dc3750-5e48-445b-8179-74e950682cba	ReferenceError: usersDB is not defined
+20251018	18:01:24	8288ca87-2bcd-4847-97b0-803474a9421f	SyntaxError: Unexpected token 'o', "[object Obj"... is not valid JSON

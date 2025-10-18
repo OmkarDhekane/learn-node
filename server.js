@@ -3,10 +3,13 @@ import cors from 'cors';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { corsOptions } from './config/corsOptions.js';
+import cookieParser from 'cookie-parser';
 
 // customer Middlewares
 import { logger } from './middleware/logEvents.js'
 import  {errorHandler}  from './middleware/errorHandler.js';
+import { verifyJWT } from './middleware/verifyJWT.js';
+import { credentials } from './middleware/credentials.js'
 
 // routers
 import subdirRouter from './routes/subdir.js';
@@ -14,6 +17,10 @@ import rootRouter from './routes/root.js';
 
 // API handlers
 import employeeApi from './routes/api/employees.js'
+import registerRouter from './routes/register.js'
+import authRouter from './routes/auth.js'
+import refresherRouter from './routes/refresh.js';
+import logoutRouter from './routes/logout.js';
 
 
 const app = express();
@@ -26,6 +33,9 @@ const __dirname  = path.dirname(__filename)
 
 
 app.use(logger);            // custom middleware
+
+app.use(credentials);
+
 app.use(cors(corsOptions)); // third party middleware cors() with customer option
 
 // ########################
@@ -33,6 +43,7 @@ app.use(cors(corsOptions)); // third party middleware cors() with customer optio
 // ########################
 app.use(express.urlencoded({extended: false})); //built in middleware to handle urlencoded data
 app.use(express.json()) //built-in middleware for json
+app.use(cookieParser()) //middleware for cookies
 
 //express.static() is a build in middleware to serve static files
 const staticFileHandler = express.static(path.join(__dirname, '/public')) 
@@ -44,6 +55,13 @@ app.use('/subdir',staticFileHandler)
 // ########################
 app.use('/', rootRouter);
 app.use('/subdir', subdirRouter);
+app.use('/register', registerRouter);
+app.use('/auth', authRouter);
+app.use('/refresh', refresherRouter);
+app.use('/logout', logoutRouter);
+
+app.use(verifyJWT); // the order is important
+
 app.use('/employees', employeeApi); // api routes
 // ########################
 
