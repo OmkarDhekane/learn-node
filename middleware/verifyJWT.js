@@ -1,6 +1,4 @@
 import jsonwebtoken from 'jsonwebtoken'
-import dotenv from 'dotenv'
-dotenv.config()
 
 // this is used to protect routes that need authentication
 // so when /employees api is called, this middleware will verify the jwt token first. in order to know if it has access to the api at first place

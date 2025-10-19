@@ -1,9 +1,16 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import path from 'path';
 import cors from 'cors';
 import express from 'express';
-import { fileURLToPath } from 'url';
-import { corsOptions } from './config/corsOptions.js';
+import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import { fileURLToPath } from 'url';
+
+//configs
+import { corsOptions } from './config/corsOptions.js';
+import connectDB from './config/dbConn.js';
 
 // custom Middlewares
 import { logger } from './middleware/logEvents.js'
@@ -27,6 +34,9 @@ const app = express();
 const PORT = process.env.PORT || 3500;
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
+
+//connect to MongoDB
+connectDB();
 
 
 // app.use() is what we use to define a middleware.
@@ -83,7 +93,11 @@ app.all(/\/*/, (req, res) => {
 // another example of custom middleware
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// only start server after connected to MongoDB successfully
+mongoose.connection.once('open', () => {
+    console.log('Connected to MongoDB');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
 
 
 // extras:

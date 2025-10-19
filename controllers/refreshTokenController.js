@@ -4,8 +4,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import jsonwebtoken from 'jsonwebtoken'
-import dotenv from 'dotenv'
-dotenv.config()
 
 
 const __filename = fileURLToPath(import.meta.url)
