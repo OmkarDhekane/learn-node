@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import { corsOptions } from './config/corsOptions.js';
 import cookieParser from 'cookie-parser';
 
-// customer Middlewares
+// custom Middlewares
 import { logger } from './middleware/logEvents.js'
 import  {errorHandler}  from './middleware/errorHandler.js';
 import { verifyJWT } from './middleware/verifyJWT.js';

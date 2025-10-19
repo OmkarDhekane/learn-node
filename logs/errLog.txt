@@ -11,3 +11,11 @@
 20251018	16:53:54	a5577959-c42d-4555-bd45-fce4f9ad1fc3	ReferenceError: usersDB is not defined
 20251018	16:54:06	66dc3750-5e48-445b-8179-74e950682cba	ReferenceError: usersDB is not defined
 20251018	18:01:24	8288ca87-2bcd-4847-97b0-803474a9421f	SyntaxError: Unexpected token 'o', "[object Obj"... is not valid JSON
+20251019	12:15:26	36c2efd3-1544-4eca-b1ce-cfe7167535db	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:17:49	51b66f52-2da9-44ba-b37e-f02dcdcd5a9c	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:30:51	e33490cb-9c13-402a-9d96-3c4d62fbd52c	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:33:57	874bcbea-f7cc-4e06-a66e-2d9a3e8fe7ad	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:35:26	8a31d1ee-f164-42b3-9985-ceba07fd9c81	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:36:07	1326462f-6371-4ce3-b87c-34857fb88106	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:36:51	b87d5f29-feb9-421b-bd2c-860624793db9	TypeError: Cannot read properties of undefined (reading 'username')
+20251019	12:42:02	a564fe7d-1471-4eb3-8467-de5cf55737a0	TypeError: Cannot read properties of undefined (reading 'firstname')
