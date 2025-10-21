@@ -1,24 +1,23 @@
-import fs from 'fs'
-import fsPromises from 'fs/promises'
-import path from 'path'
-import { fileURLToPath } from 'url'
+// import fs from 'fs'
+// import fsPromises from 'fs/promises'
+// import path from 'path'
+// import { fileURLToPath } from 'url'
 
 import jsonwebtoken from 'jsonwebtoken'
+import { User } from '../model/user.js'
 
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const USER_DATAPATH = path.join(__dirname, '..',  'model', 'users.json')
+// const USER_DATAPATH = path.join(__dirname, '..',  'model', 'users.json')
  
-const users_raw = fs.readFileSync(USER_DATAPATH)
-const userDB = {
-    users : JSON.parse(users_raw),
-    setUsers : function(data) { this.users =  data}    
-}
+// const users_raw = fs.readFileSync(USER_DATAPATH)
+// const userDB = {
+//     users : JSON.parse(users_raw),
+//     setUsers : function(data) { this.users =  data}    
+// }
 
-export const handleRefreshToken =  (req, res) => {
-    
+export const handleRefreshToken =  async (req, res) => {
     const cookies = req.cookies;
 
     if(!cookies?.jwt) return res.sendStatus(401);
@@ -27,7 +26,8 @@ export const handleRefreshToken =  (req, res) => {
     const refreshToken = cookies.jwt;
 
     //evaluate user based on refreshtoken
-    const foundUser = userDB.users.find((person) => person.refreshToken === refreshToken);
+    const foundUser = await User.findOne({refreshToken}).exec();
+    // const foundUser = userDB.users.find((person) => person.refreshToken === refreshToken);
     if(!foundUser) return res.sendStatus(403) //forbidden
 
     // evaluate jwt

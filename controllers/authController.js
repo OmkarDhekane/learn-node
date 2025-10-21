@@ -1,30 +1,33 @@
-import fs from 'fs'
-import fsPromises from 'fs/promises'
-import path from 'path'
+// import fsPromises from 'fs/promises'
+// import path from 'path'
+// import fs from 'fs'
+// import { fileURLToPath } from 'url'
+
 import bcrypt from 'bcrypt'
-import { fileURLToPath } from 'url'
-
 import jsonwebtoken from 'jsonwebtoken'
+import { User } from '../model/user.js'
 
 
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
-const USER_DATAPATH = path.join(__dirname, '..',  'model', 'users.json')
+// const USER_DATAPATH = path.join(__dirname, '..',  'model', 'users.json')
  
-const users_raw = fs.readFileSync(USER_DATAPATH)
-const userDB = {
-    users : JSON.parse(users_raw),
-    setUsers : function(data) { this.users =  data}    
-}
+// const users_raw = fs.readFileSync(USER_DATAPATH)
+// const userDB = {
+//     users : JSON.parse(users_raw),
+//     setUsers : function(data) { this.users =  data}    
+// }
 
 export const handleLogin = async (req, res) => {
     const  { user, password }  = req.body;
     if(!user || !password) return res.status(400).json({"message":"user and Password are required"});
 
     //evaluate user
-    const foundUser = userDB.users.find((person) => person.username === user);
+    const foundUser = await User.findOne({username: user}).exec();
+    // const foundUser = userDB.users.find((person) => person.username === user);
+
     if(!foundUser) return res.status(401).json({ "message": "Unauthorized" }); //401 Unauthorized
 
     //evaluate pass
@@ -51,13 +54,16 @@ export const handleLogin = async (req, res) => {
             {expiresIn: '1d'}
         );
         // save refresh token to db for logout feature of current user
-        const otherUser = userDB.users.filter(person => person.username !== foundUser.username)
-        const currentUser = { ...foundUser, refreshToken};
-        userDB.setUsers([...otherUser, currentUser])
-        await fsPromises.writeFile(
-            path.join(__dirname, '..','model','users.json'),
-            JSON.stringify(userDB.users)
-        )
+        // const otherUser = userDB.users.filter(person => person.username !== foundUser.username)
+        // const currentUser = { ...foundUser, refreshToken};
+        // userDB.setUsers([...otherUser, currentUser])
+        // await fsPromises.writeFile(
+        //     path.join(__dirname, '..','model','users.json'),
+        //     JSON.stringify(userDB.users)
+        // )
+        foundUser.refreshToken = refreshToken;
+        const result = await foundUser.save();
+        console.log(result);
 
         // need to send refreshToken to user?
         // set at cookie with httpOnly option
@@ -65,7 +71,7 @@ export const handleLogin = async (req, res) => {
         res.cookie('jwt',refreshToken, {
             httpOnly: true, 
             sameSite:'None', 
-            secure: true, 
+            // secure: true, // add back in production
             maxAge: 24*60*60*1000
         });
         
@@ -74,6 +80,5 @@ export const handleLogin = async (req, res) => {
     else{
         res.sendStatus(401);
     }
-
 
 }

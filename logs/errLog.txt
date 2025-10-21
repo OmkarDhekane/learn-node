@@ -19,3 +19,4 @@
 20251019	12:36:07	1326462f-6371-4ce3-b87c-34857fb88106	TypeError: Cannot read properties of undefined (reading 'username')
 20251019	12:36:51	b87d5f29-feb9-421b-bd2c-860624793db9	TypeError: Cannot read properties of undefined (reading 'username')
 20251019	12:42:02	a564fe7d-1471-4eb3-8467-de5cf55737a0	TypeError: Cannot read properties of undefined (reading 'firstname')
+20251020	19:33:59	eaedec49-a2a3-421d-af24-6c81211ac9a9	SyntaxError: Expected ',' or '}' after property value in JSON at position 8 (line 1 column 9)

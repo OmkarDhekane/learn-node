@@ -1,19 +1,18 @@
-import path from 'path'
-import fs from 'fs'
-import fsPromises from 'fs/promises'
-import { fileURLToPath } from 'url'
+// import path from 'path'
+// import fs from 'fs'
+// import fsPromises from 'fs/promises'
+// import { fileURLToPath } from 'url'
+import { User } from '../model/user.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
-
-
-const USER_DATAPATH = path.join(__dirname, '..',  'model', 'users.json') 
-const users_raw = fs.readFileSync(USER_DATAPATH)
-const usersDB = {
-    users : JSON.parse(users_raw),
-    setUsers : function(data) { this.users =  data}    
-}
+// const USER_DATAPATH = path.join(__dirname, '..',  'model', 'users.json') 
+// const users_raw = fs.readFileSync(USER_DATAPATH)
+// const usersDB = {
+//     users : JSON.parse(users_raw),
+//     setUsers : function(data) { this.users =  data}    
+// }
 
 
 export const handleLogout =  async (req, res) => {
@@ -30,7 +29,9 @@ export const handleLogout =  async (req, res) => {
     // is refreshToken in db?
 
     //evaluate user based on refreshtoken
-    const foundUser = usersDB.users.find((person) => person.refreshToken === refreshToken);
+    const foundUser = await User.findOne({refreshToken}).exec();
+
+    // const foundUser = usersDB.users.find((person) => person.refreshToken === refreshToken);
     if(!foundUser) {
 
         res.clearCookie('jwt',{httpOnly: true, 
@@ -45,13 +46,15 @@ export const handleLogout =  async (req, res) => {
     //delete refresh token
 
     // find all except current one
-    const otherUsers = usersDB.users.filter((person) => [person.refreshToken !== foundUser.refreshToken]);
+    // const otherUsers = usersDB.users.filter((person) => [person.refreshToken !== foundUser.refreshToken]);
+    // const currentUser = {...foundUser, refreshToken: ''}; //updated current user 
+    // usersDB.setUsers([...otherUsers, currentUser]); // merge current with others
+    // await fsPromises.writeFile(USER_DATAPATH, JSON.stringify(usersDB.users));
 
-    const currentUser = {...foundUser, refreshToken: ''}; //updated current user 
+    foundUser.refreshToken = '';
+    const result =  await foundUser.save();
+    console.log(result);
 
-    usersDB.setUsers([...otherUsers, currentUser]); // merge current with others
-
-    await fsPromises.writeFile(USER_DATAPATH, JSON.stringify(usersDB.users));
 
     res.clearCookie('jwt',{httpOnly: true, 
             sameSite:'None', 
