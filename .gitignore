@@ -1,2 +1,9 @@
+# Ignore VSCode settings
+.vscode/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
 node_modules
 .env
